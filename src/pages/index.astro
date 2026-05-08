@@ -1,50 +1,306 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
+// Import components
+import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+// Blog posts data
+const posts = [
+  {
+    id: 1,
+    title: "Getting Started with Astro",
+    date: "2024-01-15",
+    excerpt: "Astro is a modern static site builder that delivers lightning-fast performance...",
+    author: "Ayesha",
+    tags: ["Astro", "Tutorial"]
+  },
+  {
+    id: 2,
+    title: "Cloudflare D1 Database Guide",
+    date: "2024-01-20",
+    excerpt: "Learn how to use Cloudflare's D1 database with your Worker applications...",
+    author: "Ayesha",
+    tags: ["Cloudflare", "Database"]
+  },
+  {
+    id: 3,
+    title: "Building Full-Stack Apps",
+    date: "2024-01-25",
+    excerpt: "Combine Astro, Workers, and D1 to create powerful full-stack applications...",
+    author: "Ayesha",
+    tags: ["Full-Stack", "Tutorial"]
+  },
+  {
+    id: 4,
+    title: "Deployment Strategies",
+    date: "2024-02-01",
+    excerpt: "Learn the best practices for deploying your applications to production...",
+    author: "Ayesha",
+    tags: ["DevOps", "Deployment"]
+  }
+];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout title="Ayesha's Astro Blog | Home">
+  <div class="home-container">
+    <Header />
+    
+    <main class="main-content">
+      <section class="hero">
+        <h1 class="hero-title">
+          <span class="gradient-text">Welcome to My Astro Blog</span>
+        </h1>
+        <p class="hero-subtitle">
+          Exploring modern web development with Astro, Cloudflare Workers, and D1 Database
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">4+</span>
+            <span class="stat-label">Articles</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Performance</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Uptime</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <h2 class="section-title">📝 Latest Blog Posts</h2>
+        <div class="posts-grid">
+          {posts.map((post) => (
+            <article class="post-card">
+              <div class="post-tags">
+                {post.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+              <h3 class="post-title">{post.title}</h3>
+              <div class="post-meta">
+                <span class="post-date">📅 {new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span class="post-author">✍️ By {post.author}</span>
+              </div>
+              <p class="post-excerpt">{post.excerpt}</p>
+              <a href={`/post/${post.id}`} class="read-more">
+                Read More →
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2 class="section-title">🌟 About This Blog</h2>
+        <div class="about-content">
+          <p>
+            This blog is built with <strong>Astro</strong>, a modern static site generator, 
+            and powered by <strong>Cloudflare Workers</strong> with <strong>D1 Database</strong>.
+          </p>
+          <p>
+            Here you'll find tutorials, guides, and thoughts about web development, 
+            cloud computing, and modern JavaScript frameworks.
+          </p>
+          <div class="tech-stack">
+            <span class="tech">⚡ Astro</span>
+            <span class="tech">☁️ Cloudflare</span>
+            <span class="tech">🗄️ D1 Database</span>
+            <span class="tech">🚀 Workers</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</Layout>
+
+<style>
+  .home-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #fff 0%, #e0e0ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffd700;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .blog-section, .about-section {
+    background: white;
+    border-radius: 30px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.6s ease 0.2s backwards;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    color: #667eea;
+    margin-bottom: 2rem;
+    border-left: 4px solid #764ba2;
+    padding-left: 1rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .post-card {
+    background: #f8f9fa;
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+  }
+
+  .post-title {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 1rem;
+  }
+
+  .post-excerpt {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .read-more {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  .read-more:hover {
+    color: #764ba2;
+  }
+
+  .about-content {
+    line-height: 1.8;
+    color: #555;
+  }
+
+  .about-content p {
+    margin-bottom: 1rem;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .tech {
+    background: #667eea10;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #667eea;
+    border: 1px solid #667eea30;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title { font-size: 2rem; }
+    .hero-stats { gap: 1.5rem; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .main-content { padding: 1rem; }
+    .blog-section, .about-section { padding: 1.5rem; }
+  }
+</style>
